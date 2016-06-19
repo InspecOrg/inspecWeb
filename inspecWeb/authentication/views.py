@@ -14,7 +14,8 @@ class Login(View):
     def get(self, request):
         """Get method for login."""
         if request.user.is_authenticated():
-            response = redirect('/')
+            response = render_to_response(
+                'home.html', context_instance=RequestContext(request))
         else:
             response = render_to_response(
                 'login.html', context_instance=RequestContext(request))
@@ -25,11 +26,12 @@ class Login(View):
         username = request.POST['username']
         password = request.POST['password']
 
-        user = authenticate(username, password)
+        user = authenticate(username=username, password=password)
 
         if user is not None:
             login(request, user)
-            response = render(request, 'index.html', user)
+            response = render_to_response(
+                'home.html', context_instance=RequestContext(request))
         else:
             response = redirect('/login/')
         return response

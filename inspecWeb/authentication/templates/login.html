@@ -6,10 +6,10 @@
             <div class="card s12 m3">
                 <div class="card center">
                     {% load static from staticfiles %}
-                    <img src="" height="90" width="90"><br>
-                    <span class="card-title">Login</span>
+                    <span class="card-title">Inspec | Login</span>
                 </div>
                 <div class="card-content">
+                <span><i class="fa-2x fa-eye" aria-hidden="true"></i></span>
                     <form action="/login/" method="POST">
                         {% csrf_token %}
                         <div class="input-field col s3">
