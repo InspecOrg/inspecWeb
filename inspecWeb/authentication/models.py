@@ -10,7 +10,7 @@ class InspecUser(User):
     user_cpf = models.CharField(max_length=11)
     user_registration = models.CharField(max_length=7)
     user_birthday = models.DateTimeField(auto_now=True)
-    user_sex = models.CharField(max_length=10)
+    user_gender = models.CharField(max_length=10)
     process_track = models.ManyToManyField('Acompanhamento')
 
 
