@@ -62,24 +62,30 @@ class SignUp(View):
     def post(self, request):
         """POST method for signup."""
         first_name = request.POST['first_name']
+
         registration = request.POST['registration']
         email = request.POST['email']
         username = request.POST['username']
         password = request.POST['password']
+
         cpf = request.POST.get('cpf')
         gender = request.POST.get('gender')
-        confirm_password = request.POST.get('password2')
+        confirm_password = request.POST['password2']
+
+        print(confirm_password)
+        print(password)
 
         if password == confirm_password:
 
-            new_user = InspecUser.objetcs.create_user(
-                username=username,
-                email=email,
-                password=password,
-                first_name=first_name,
-                user_cpf=cpf,
-                user_gender=gender,
-                user_registration=registration)
+            new_user = InspecUser()
+            new_user.username = username
+            new_user.email = email
+            new_user.password = password
+            new_user.first_name = first_name
+            new_user.user_cpf = cpf
+            new_user.user_gender = gender
+            new_user.user_registration = registration
+            new_user.set_password(password)
 
             new_user.save()
             response = redirect('/login/')
