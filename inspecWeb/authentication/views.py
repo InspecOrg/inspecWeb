@@ -32,7 +32,7 @@ class Login(View):
         if user is not None:
             login(request, user)
             response = render_to_response(
-                'home.html', context_instance=RequestContext(request))
+                'index.html', context_instance=RequestContext(request))
         else:
             response = redirect('/login/')
         return response
@@ -47,6 +47,15 @@ class Logout(View):
 
         return render_to_response(
             'login.html', context_instance=RequestContext(request))
+
+
+class Home(View):
+    """Home Acess method."""
+
+    def get(self, request):
+        """Get method for home."""
+        return render_to_response(
+            'home.html', context_instance=RequestContext(request))
 
 
 class SignUp(View):
