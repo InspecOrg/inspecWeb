@@ -42,3 +42,16 @@ class Report(Document):
     responsible = models.ForeignKey(InspecAgent)
 
 
+class DocumentCreator():
+    """Factory method for create both report and Undersigned."""
+
+    def create_document(self, choice_number):
+        """Factory method for instantiate concret Documents."""
+        if choice_number == 1:
+                response = Undersigned()
+        elif choice_number == 2:
+                response = Report()
+        else:
+            raise exception
+
+        return response
