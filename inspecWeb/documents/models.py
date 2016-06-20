@@ -42,7 +42,3 @@ class Report(Document):
     responsible = models.ForeignKey(InspecAgent)
 
 
-class DocumentObserver(models.Model):
-    """Observer pattern for Document."""
-
-    # def notify_all(Document):

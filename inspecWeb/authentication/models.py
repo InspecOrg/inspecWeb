@@ -4,17 +4,24 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class DocumentObserver():
+    """Observer pattern for notify InspecAgent."""
+
+    # def notify_all(Document):
+    # logica para notificar via email
+
+
 class InspecUser(User):
     """Inspec User."""
 
     user_cpf = models.CharField(max_length=11)
     user_registration = models.CharField(max_length=7)
     user_birthday = models.DateTimeField(auto_now=True)
-    user_gender = models.CharField(max_length=10)
+    user_gender = models.CharField(max_length=13)
     process_track = models.ManyToManyField('Acompanhamento')
 
 
-class InspecAgent(User):
+class InspecAgent(User, DocumentObserver):
     """Inspec secondary user, Agent."""
 
     agent_registration = models.CharField(max_length=7)
