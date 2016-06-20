@@ -16,7 +16,7 @@ class Login(View):
         """Get method for login."""
         if request.user.is_authenticated():
             response = render_to_response(
-                'home.html', context_instance=RequestContext(request))
+                'index.html', context_instance=RequestContext(request))
         else:
             response = render_to_response(
                 'login.html', context_instance=RequestContext(request))
