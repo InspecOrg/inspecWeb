@@ -9,19 +9,19 @@ from datetime import datetime
 
 class Importer(object):
 
-    def import_data(self):
-        self.import_convenios()
+    def import_data(self, qnt_conv):
+        self.import_convenios(qnt_conv)
 
-    def read_file(self, file_name):
+    def read_file(self, file_name, nrows):
         try:
-            data = pd.read_csv(file_name, ';', header=0)
+            data = pd.read_csv(file_name, ';', header=0, nrows=nrows)
         except (IOError, NameError):
             print ('Erro ao ler o arquivo' + file_name + ', verifique\
 se ele se encontra no mesmo diretorio que parser.py')
         return data
 
-    def import_convenios(self):
-        data = self.read_file('importer/convenio.csv')
+    def import_convenios(self, qnt_conv):
+        data = self.read_file('importer/convenio.csv', qnt_conv)
 
         print('Inporting Convenios')
 
@@ -54,7 +54,7 @@ se ele se encontra no mesmo diretorio que parser.py')
                 convenio.dt_publicacao = None
             convenio.id_programa = row['ID_PROP_PROGRAMA']
             convenio.save()
-
+            
     def str_to_bool(self, s):
         if s == 'True':
             return True
