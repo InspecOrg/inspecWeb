@@ -17,3 +17,19 @@ class Convenio(models.Model):
     id_programa = models.IntegerField()
     assinado = models.BooleanField()
     publicado = models.BooleanField()
+
+    @classmethod
+    def get_convenio_by_municipio(cls, municipio):
+        """Get all instances of 'Convenio' by municipio query."""
+        return cls.objetcs.filter(
+            nm_municipio_proponente__startswith=municipio)
+
+    @classmethod
+    def get_convenio_by_region(cls, regiao):
+        """Get all instances of 'Convenio' that matches region query."""
+        return cls.objetcs.filter(tx_region_proponente__startswith=regiao)
+
+    @classmethod
+    def get_convenio_by_uf(cls, uf):
+        u"""Get all instances of 'Convenio' that matches(Unidade da Federação)."""
+        return cls.objetcs.filter(uf_proponente__startswith=uf)
