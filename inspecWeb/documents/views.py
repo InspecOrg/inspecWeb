@@ -3,7 +3,7 @@
 from django.shortcuts import render_to_response
 from django.views.generic import View
 from django.template import RequestContext
-from documents.models import Undersigned
+from documents.models import Undersigned, Document
 # Create your views here.
 
 

@@ -54,7 +54,8 @@ class Report(Document):
 class DocumentCreator():
     """Factory method for create both report and Undersigned."""
 
-    def create_document(self, choice_number):
+    @classmethod
+    def create_document(cls, choice_number):
         """Factory method for instantiate concret Documents."""
         if choice_number == 1:
                 response = Undersigned()
