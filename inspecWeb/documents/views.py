@@ -26,3 +26,5 @@ class ShowDocuments(View):
         """Get method for acess Related Documents page."""
         return render_to_response(
             'documents.html', context_instance=RequestContext(request))
+
+

@@ -35,6 +35,11 @@ class Undersigned(Document):
         # self.interested
         # Implement the logic here
 
+    @classmethod
+    def related_user(cls, user_id):
+        """Search for all documents related with a certain user."""
+        return cls.objects.filter(signers_id=user_id)
+
 
 class Report(Document):
     """Concrete class inherits from document."""
