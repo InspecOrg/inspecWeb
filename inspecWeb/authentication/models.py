@@ -2,7 +2,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.mail import send_email
+from django.core.mail import send_mail
 
 
 class InspecUser(User):
@@ -16,7 +16,7 @@ class InspecUser(User):
 
     def notify(self):
         """Method to notify InspecUser from modifications on Document."""
-        send_email(
+        send_mail(
             'Um documento que você segue foi respondido',
             'O documento TESTE parte do convênio CONVENIO_TESTE foi modificado,\
              veja mais em InspecOrg.com',
