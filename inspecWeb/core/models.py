@@ -5,7 +5,7 @@ from django.db import models
 
 class Convenio(models.Model):
     ano_convenio = models.DateField(null=True)
-    nr_convenio = models.IntegerField()
+    nr_convenio = models.IntegerField(null=True)
     tx_objeto_convenio = models.CharField(max_length=255)
     id_convenio = models.IntegerField(null=True)
     tx_modelidade = models.CharField(max_length=255)
