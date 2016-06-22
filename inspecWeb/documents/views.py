@@ -1,8 +1,9 @@
 """Views for document app."""
 
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render_to_response
 from django.views.generic import View
 from django.template import RequestContext
+from documents.models import Undersigned
 # Create your views here.
 
 
@@ -24,7 +25,9 @@ class ShowDocuments(View):
 
     def get(self, request):
         """Get method for acess Related Documents page."""
+        request_user = request.user.id
+        related_documents = Undersigned.related_user(request_user)
+
         return render_to_response(
-            'documents.html', context_instance=RequestContext(request))
-
-
+            'documents.html', locals(),
+            context_instance=RequestContext(request))
