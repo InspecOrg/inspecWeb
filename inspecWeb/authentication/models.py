@@ -2,13 +2,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-
-
-class DocumentObserver():
-    """Observer pattern for notify InspecAgent."""
-
-    # def notify_all(Document):
-    # logica para notificar via email
+from django.core.mail import send_email
 
 
 class InspecUser(User):
@@ -20,8 +14,18 @@ class InspecUser(User):
     user_gender = models.CharField(max_length=13)
     process_track = models.ManyToManyField('Acompanhamento')
 
+    def notify(self):
+        """Method to notify InspecUser from modifications on Document."""
+        send_email(
+            'Um documento que você segue foi respondido',
+            'O documento TESTE parte do convênio CONVENIO_TESTE foi modificado,\
+             veja mais em InspecOrg.com',
+            'gustavo.sabino@hotmail.com',
+            [self.email],
+            fail_silently=False)
 
-class InspecAgent(User, DocumentObserver):
+
+class InspecAgent(User):
     """Inspec secondary user, Agent."""
 
     agent_registration = models.CharField(max_length=7)
