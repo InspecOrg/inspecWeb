@@ -18,9 +18,9 @@ class Undersigned(Document):
     status = models.CharField(max_length=100)
     interested = models.ForeignKey(InspecAgent)
 
-    def get_signers():
-        """Get the signers to inform the status of this document."""
-        return None
+    # def get_signers():
+    #     """Get the signers to inform the status of this document."""
+    #     return None
 
     def notify_observer():
         """Notify all observers."""
@@ -28,12 +28,16 @@ class Undersigned(Document):
 
     def add_observer(self, interested):
         """Add a InspecAgent to the list of observers."""
-        self.interested + interested
 
     def remove_observer(self, interested):
         """Remove a InspecAgent from observers list."""
         # self.interested
         # Implement the logic here
+
+    def save(self, *args, **kwargs):
+        """Override of save method."""
+        self.signers.notify()
+        super(Undersigned, self).save(*args, **kwargs)
 
     @classmethod
     def related_user(cls, user_id):
@@ -57,6 +61,6 @@ class DocumentCreator():
         elif choice_number == 2:
                 response = Report()
         else:
-            raise exception
+            pass
 
         return response
