@@ -42,8 +42,6 @@ class Undersigned(Document):
 
 
 def undersigned_changed(sender, **kwargs):
-    import ipdb
-    ipdb.set_trace()
     try:
         instance = kwargs.pop('instance', None)
         und = instance
