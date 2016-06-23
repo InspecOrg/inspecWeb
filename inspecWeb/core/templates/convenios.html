@@ -1,0 +1,41 @@
+{% extends "main_base.html" %}
+{% load i18n %}
+{% block main_content %}
+{% include 'side_bar.html' %}
+<div>
+
+    {% if convenios %}
+        {% for convenio in convenios %}
+            <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class='collapsible-'>{{convenio.programa.nm_programa}}</div>
+                <div class='collapsible-header'>
+                    <p>{{convenio.superior.nm_orgao_superior}}</p>
+                    <p>{{convenio.proponente.nm_proponente}}</p>
+                    <p>{{convenio.proponente.municipio_proponente}}</p>
+                    <p>{{convenio.proponente.tx_regiao_proponente}}</p>
+                    <p>{{convenio.proponente.uf_proponente}}</p>
+                    <p>{{convenio.proponente.nm_respons_proponente}}</p>
+                    <p>{{convenio.proponente.tx_esfera_adm_proponente}}</p>
+                </div>
+            </li>
+             
+            </ul>
+         {% endfor %}
+    {% endif %}
+    {% if not convenios %}
+    <div class="">Sem resultados</div>
+    {% endif %}
+</div>
+
+    <script>
+         $(document).ready(function(){
+    $('.collapsible').collapsible({
+      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+  });
+    </script>
+
+
+{% endblock main_content %}
+
