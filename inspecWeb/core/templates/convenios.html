@@ -1,15 +1,17 @@
 {% extends "main_base.html" %}
-{% load i18n %}
+{% load static from staticfiles %}
+
 {% block main_content %}
-{% include 'side_bar.html' %}
+ 
 <div>
+    {% include 'sidebar.html' %}
 
     {% if convenios %}
         {% for convenio in convenios %}
             <ul class="collapsible" data-collapsible="accordion">
             <li>
-                <div class='collapsible-'>{{convenio.programa.nm_programa}}</div>
-                <div class='collapsible-header'>
+                <div class='collapsible-header'>{{convenio.programa.nm_programa}}</div>
+                <div class='collapsible-body'>
                     <p>{{convenio.superior.nm_orgao_superior}}</p>
                     <p>{{convenio.proponente.nm_proponente}}</p>
                     <p>{{convenio.proponente.municipio_proponente}}</p>
