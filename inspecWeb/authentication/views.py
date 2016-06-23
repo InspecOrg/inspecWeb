@@ -41,6 +41,8 @@ class Login(View):
 class Logout(View):
     """Logout Method."""
 
+    http_method_names = [u'get']
+
     def get(self, request):
         """Get method For logout."""
         logout(request)
@@ -51,6 +53,8 @@ class Logout(View):
 
 class Home(View):
     """Home Acess method."""
+
+    http_method_names = [u'get']
 
     def get(self, request):
         """Get method for home."""

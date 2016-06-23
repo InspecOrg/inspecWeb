@@ -16,15 +16,11 @@ class Undersigned(Document):
 
     signers = models.ForeignKey(InspecUser)
     status = models.CharField(max_length=100)
-    interested = models.ForeignKey(InspecAgent)
+    interested = models.ForeignKey(InspecAgent, null=True)
 
     # def get_signers():
     #     """Get the signers to inform the status of this document."""
     #     return None
-
-    def notify_observer():
-        """Notify all observers."""
-        return None
 
     def add_observer(self, interested):
         """Add a InspecAgent to the list of observers."""
