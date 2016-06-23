@@ -36,6 +36,20 @@ class SearchConvenios(View):
             context_instance=RequestContext(request))
 
 
+class ShowConveniosDetail(View):
+    """Show Convenios."""
+
+    http_method_names = [u'get']
+
+    def get(self, request, convenio_id):
+        """Get."""
+        convenio = Convenio.objects.get(id=convenio_id)
+        return render_to_response(
+            'details.html',
+            locals(),
+            context_instance=RequestContext(request))
+
+
 class SearchConveniosByMunicipio(View):
     """Class View to search Convenios by municipio."""
 

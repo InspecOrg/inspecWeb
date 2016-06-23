@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.views.generic import View
 from django.contrib.auth import authenticate, login, logout
 from authentication.models import InspecUser
+from django.contrib.auth.decorators import login_required
 
 
 class Login(View):
@@ -49,6 +50,22 @@ class Logout(View):
 
         return render_to_response(
             'login.html', context_instance=RequestContext(request))
+
+
+# @login_required
+class Index(View):
+    """Index."""
+
+    http_method_names = [u'get']
+
+    def get(self, request):
+        """method."""
+        if request.user.is_authenticated():
+                return render_to_response(
+                    'index.html', context_instance=RequestContext(request))
+        else:
+            return render_to_response(
+                'login.html', context_instance=RequestContext(request))
 
 
 class Home(View):

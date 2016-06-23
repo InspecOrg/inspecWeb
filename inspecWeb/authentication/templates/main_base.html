@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+    {% include 'top_bar.html' %}
         <meta charset="utf-8">
         {% load static from staticfiles %}
-
-
-        {% include 'top_bar.html' %}
         <link rel="icon" href="">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -23,12 +21,17 @@
     {% block header %}{% endblock header %}
 </head>
 <body>
-     <script type="text/javascript" src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+
+
+
+
+    <script type="text/javascript" src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
     <script src="{% static 'js/material.min.js'%}"></script>
     <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+    <div class="container">
     {% block main_content %}
     {% endblock main_content %}
-    
+    </div>
     
 
 
