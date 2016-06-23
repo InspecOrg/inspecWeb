@@ -59,9 +59,9 @@ class Convenio(models.Model):
 
 class Concedente(models.Model):
     nm_respons_concedente = models.CharField(max_length=255, null=True)
-    cd_respons_concedente = models.FloatField(default=0.0)
+    cd_respons_concedente = models.CharField(max_length=255, null=True)
     nm_orgao_concedente = models.CharField(max_length=255, null=True)
-    cd_orgao_concedente = models.FloatField(default=0.0)
+    cd_orgao_concedente = models.CharField(max_length=255, null=True)
 
 
 class Datas(models.Model):
@@ -73,9 +73,9 @@ class Datas(models.Model):
 
 
 class Programa(models.Model):
-    cd_programa = models.FloatField(default=0.0)
+    cd_programa = models.CharField(max_length=255, null=True)
     nm_programa = models.CharField(max_length=255, null=True)
-    cd_acao_programa = models.IntegerField(null=True)
+    cd_acao_programa = models.CharField(max_length=255, null=True)
 
 
 class Proponente(models.Model):
@@ -87,7 +87,7 @@ class Proponente(models.Model):
     nm_municipio_proponente = models.CharField(max_length=255, null=True)
     tx_qualific_proponente = models.CharField(max_length=255, null=True)
     nm_respons_proponente = models.CharField(max_length=255, null=True)
-    cd_repons_proponente = models.FloatField(default=0.0)
+    cd_repons_proponente = models.FloatField(default=0.0, null=True)
 
 
 class Proposta(models.Model):
@@ -144,10 +144,12 @@ class ConvenioBuilder(ServicoBuilder):
         self.valores.vl_contrapartida = vl_contrapartida
         self.valores.vl_contrapartida_financ = vl_contrapartida_financ
         self.valores.vl_contrapartida_bens_serv = vl_contrapartida_bens_serv
+        self.valores.save()
 
     def build_superior(self, nm_orgao_superior, cd_orgao_superior):
         self.superior.nm_orgao_superior = nm_orgao_superior
         self.superior.cd_orgao_superior = cd_orgao_superior
+        self.superior.save()
 
     def build_responsavel(self, nm_respons_proponente, cd_respons_proponente,
                           nm_respons_concedente, cd_respons_concedente):
@@ -155,6 +157,7 @@ class ConvenioBuilder(ServicoBuilder):
         self.responsavel.cd_respons_proponente = cd_respons_proponente
         self.responsavel.nm_respons_concedente = nm_respons_concedente
         self.responsavel.cd_respons_concedente = cd_respons_concedente
+        self.responsavel.save()
 
     def build_proposta(self, ano_proposta, nr_proposta, dt_proposta,
                        id_proposta):
@@ -162,6 +165,7 @@ class ConvenioBuilder(ServicoBuilder):
         self.proposta.nr_proposta = nr_proposta
         self.proposta.dt_proposta = dt_proposta
         self.proposta.id_proposta = id_proposta
+        self.proposta.save()
 
     def build_proponente(self, cd_identif_proponente, nm_proponente,
                          tx_esfera_adm_proponente, tx_regiao_proponente,
@@ -177,11 +181,13 @@ class ConvenioBuilder(ServicoBuilder):
         self.proponente.tx_qualific_proponente = tx_qualific_proponente
         self.proponente.nm_respons_proponente = nm_respons_proponente
         self.proponente.cd_repons_proponente = cd_repons_proponente
+        self.proponente.save()
 
     def buid_programa(self, cd_programa, nm_programa, cd_acao_programa):
         self.programa.cd_programa = cd_programa
         self.programa.nm_programa = nm_programa
         self.programa.cd_acao_programa = cd_acao_programa
+        self.programa.save()
 
     def build_datas(self, ano_convenio, dt_inicio_vigencia, dt_fim_vigencia,
                     dt_assinatura, dt_publicacao):
@@ -190,6 +196,7 @@ class ConvenioBuilder(ServicoBuilder):
         self.datas.dt_fim_vigencia = dt_fim_vigencia
         self.datas.dt_assinatura = dt_assinatura
         self.datas.dt_publicacao = dt_publicacao
+        self.datas.save()
 
     def build_concedente(self, nm_respons_concedente, cd_respons_concedente,
                          nm_orgao_concedente, cd_orgao_concedente):
@@ -197,6 +204,7 @@ class ConvenioBuilder(ServicoBuilder):
         self.concedente.cd_respons_concedente = cd_respons_concedente
         self.concedente.nm_orgao_concedente = nm_orgao_concedente
         self.concedente.cd_orgao_concedente = cd_orgao_concedente
+        self.concedente.save()
 
     def gerar_servico(self, ano_convenio, nr_convenio, tx_objeto_convenio,
                       id_convenio, tx_modelidade, tx_situacao,
@@ -222,3 +230,4 @@ class ConvenioBuilder(ServicoBuilder):
         self.convenio.proposta = self.proposta
         self.convenio.superior = self.superior
         self.convenio.valores = self.valores
+        return self.convenio
