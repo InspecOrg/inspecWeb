@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.core.management.base import BaseCommand
-from importer.parser import Parser
+from importer.parser import Importer
 
 
 class Command(BaseCommand):
@@ -11,5 +11,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         """This method is used for create objects based in parser."""
 
-        parser = Parser()
-        parser.import_data()
+        parser = Importer()
+        parser.import_data(400)
