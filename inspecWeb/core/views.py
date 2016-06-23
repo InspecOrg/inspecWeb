@@ -29,8 +29,7 @@ class SearchConvenios(View):
         """Get method to acess the page."""
         query = request.GET['search']
 
-        convenios = Convenio.get_convenio_by_uf(query)
-
+        convenios = Convenio.get_convenio_by_any_query(query)
         return render_to_response(
             'convenios.html',
             locals(),

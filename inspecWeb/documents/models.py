@@ -7,16 +7,18 @@ from authentication.models import InspecUser, InspecAgent
 class Document(models.Model):
     """Abstract document model."""
 
-    title = models.CharField(max_length=30)
-    description = models.CharField(max_length=500)
+    title = models.CharField(max_length=30, null=True)
+    description = models.CharField(max_length=500, null=True)
+
+    class Meta:
+        abstract = True
 
 
 class Undersigned(Document):
     """Concrete class inherits from document."""
 
-    # signers = models.ManyToManyField(InspecUser)
-    status = models.CharField(max_length=100)
-    interested = models.ForeignKey(InspecAgent, null=True)
+    signers = models.ManyToManyField(InspecUser)
+    status = models.CharField(max_length=100, null=True)
 
     # def get_signers():
     #     """Get the signers to inform the status of this document."""

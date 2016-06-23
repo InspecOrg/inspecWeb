@@ -1,5 +1,6 @@
 from django.db import models
 from abc import abstractmethod
+from django.db.models import Q
 
 
 class ServicoBuilder(models.Model):
@@ -65,12 +66,20 @@ class Convenio(models.Model):
     def get_convenio_by_region(cls, regiao):
         """Get all instances of 'Convenio' that matches region query."""
         return cls.objetcs.filter(
-            proponente__tx_region_proponente__startswith=regiao)
+            proponente__tx_regiao_proponente__startswith=regiao)
 
     @classmethod
     def get_convenio_by_uf(cls, uf):
         u"""Get all instances of 'Convenio' that matches(Unidade da Federação)."""
         return cls.objects.filter(proponente__uf_proponente__startswith=uf)
+
+    @classmethod
+    def get_convenio_by_any_query(cls, query):
+        """Get any query and return the result to the list."""
+        return cls.objects.filter(
+            Q(proponente__uf_proponente__startswith=query) |
+            Q(proponente__nm_municipio_proponente__startswith=query) |
+            Q(proponente__tx_regiao_proponente__startswith=query))
 
 
 class Concedente(models.Model):
