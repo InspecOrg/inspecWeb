@@ -1,0 +1,48 @@
+{% extends "main_base.html" %}
+{% load i18n %}
+{% block main_content %}
+
+<div class="row">
+        <div class="col m12 ">
+          <div class="card cyan darken-4">
+            <div class="card-content black-text">
+              <span class="card-title"><h4 class=" teal-text text-accent-1"><span>{{convenio.programa.nm_programa}}</h3></span>
+              <ul class="collection">
+                <li class="collection-item">Orgão Responsável: <span>{{convenio.superior.nm_orgao_superior}}</span></li>
+                
+                <li class="collection-item">Proponente: <span>{{convenio.proponente.nm_proponente}}</span></li>
+                
+                <li class="collection-item">Unidade da Federação: <span>{{convenio.proponente.uf_proponente}}</span></li>
+                
+                <li class="collection-item">Responsável: <span>{{convenio.proponente.nm_respons_proponente}}</span></li>
+                
+                <li class="collection-item">Local: <span>{{convenio.proponente.municipio_proponente}} - <span>{{convenio.proponente.tx_regiao_proponente}}</span></li>
+                
+                <li class="collection-item">Data proposto: <span>{{convenio.proposta.ano_proposta}}</span></li>
+                
+                <li class="collection-item">Tipo de Instituição do proponente: <span>{{convenio.proponente.tx_esfera_adm_proponente}} </span></li>
+               
+                <li class="collection-item">Orgão que Concedeu: <span>{{ convenio.concedente.nm_orgao_concedente }}</span></li>
+                
+                {% if convenio.concedente.nm_respons_concedente == "nan" %}
+                  <li class="collection-item">Responsável não Datado.</span></li>
+                {%else%}
+                  <li class="collection-item"> <span>{{ convenio.concedente.nm_respons_concedente }}</span></li>
+                {%endif%}
+                <li class="collection-item"> Situação do Convênio <span>{{ convenio.tx_situacao }} </span></li>
+                
+                <li class="collection-item"> Valor de ContraPartida <span>{{ convenio.valores.vl_contrapartida }} </span></li>
+                
+                <li class="collection-item"> Valor pedido: <span>{{ convenio.valores.vl_global }}</span></li>
+                
+                <li class="collection-item">Valor repassado: <span>{{ convenio.valores.vl_repasse }}</span></li>
+              </ul>
+            </div>
+            <div class="card-action ">
+              <a href="#" class="cyan-text">Assinar!</a>
+            </div>
+          </div>
+        </div>
+</div>
+
+{% endblock main_content %}

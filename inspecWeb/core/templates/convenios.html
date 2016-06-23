@@ -8,34 +8,33 @@
                 {% for convenio in convenios %}
                     <ul class="collapsible " data-collapsible="accordion">
                         <li>
-                            <div class='collapsible-header blue-text text-darken-2'>{{convenio.programa.nm_programa}}</div>
+                            <div class='collapsible-header hoverable blue-text text-darken-2'>{{convenio.programa.nm_programa}}</div>
                             <div class='collapsible-body'>
-                            <span>
+                                <span>
                                     <a href="{% url 'convenio_detail' convenio_id=convenio.id %}" class="waves-effect waves-light btn right indigo darken-3">Ver Mais Info</a>
                                     <a href="" class="waves-effect waves-light btn right">Assinar</a>
-                            </span>
-                                <p>Orgão Responsável: {{convenio.superior.nm_orgao_superior}}</p>
-                                <p>Proponente: {{convenio.proponente.nm_proponente}}</p>
-                                <p>Unidade da Federação: {{convenio.proponente.uf_proponente}}</p>
-                                <p>Responsável: {{convenio.proponente.nm_respons_proponente}}</p>
-                                <p>{{convenio.proponente.municipio_proponente}}</p>
-                                <p>{{convenio.proponente.tx_regiao_proponente}}</p>
-                                <p>{{convenio.proponente.tx_esfera_adm_proponente}} </p>
-                            </div>
-
-                        </li>
-                    </ul>
-                {% endfor %}
-            {% endif %}
-            {% if not convenios %}
-                <div class="col s9">Sem resultados</div>
-            {% endif %}
-        </div>
+                                </span>
+                                <ul class="collection">
+                                    <li class="collection-item"><span>Orgão Responsável: {{convenio.superior.nm_orgao_superior}}</li></span>
+                                    <li class="collection-item"><span>Proponente: {{convenio.proponente.nm_proponente}}</li></span>
+                                    <li class="collection-item"><span>Unidade da Federação: {{convenio.proponente.uf_proponente}}</li></span>
+                                    <li class="collection-item"><span>Responsável: {{convenio.proponente.nm_respons_proponente}}</li></span>
+                                  
+                                    <li class="collection-item"><span>Região: {{convenio.proponente.tx_regiao_proponente}}</li></span>
+                                </ul>
+                        </div>
+                    </li>
+                </ul>
+            {% endfor %}
+        {% endif %}
+        {% if not convenios %}
+            <div class="col s9">Sem resultados</div>
+        {% endif %}
     </div>
 </div>
-
-<script>    
-     // Initialize collapse button
-  $(".button-collapse").sideNav();
+</div>
+<script>
+// Initialize collapse button
+$(".button-collapse").sideNav();
 </script>
 {% endblock main_content %}
