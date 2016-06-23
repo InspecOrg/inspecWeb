@@ -1,24 +1,27 @@
 """Document models."""
 
 from django.db import models
-from authentication.models import InspecUser, InspecAgent
+from authentication.models import InspecAgent, InspecUser
+from core.models import InspecModel
+from django.db.models.signals import m2m_changed
 
 
-class Document(models.Model):
+class Document(InspecModel):
     """Abstract document model."""
 
     title = models.CharField(max_length=30, null=True)
     description = models.CharField(max_length=500, null=True)
+    inspecusers = models.ManyToManyField('authentication.InspecUser')
 
-    class Meta:
-        abstract = True
+    def __str__(self):
+        return "{} - {}".format(self.title, self.description)
 
 
 class Undersigned(Document):
     """Concrete class inherits from document."""
 
-    signers = models.ManyToManyField(InspecUser)
     status = models.CharField(max_length=100, null=True)
+    signers = models.ManyToManyField('authentication.InspecUser')
 
     # def get_signers():
     #     """Get the signers to inform the status of this document."""
@@ -32,15 +35,26 @@ class Undersigned(Document):
         # self.interested
         # Implement the logic here
 
-    def save(self, *args, **kwargs):
-        """Override of save method."""
-        self.signers.notify()
-        super(Undersigned, self).save(*args, **kwargs)
-
     @classmethod
     def related_user(cls, user_id):
         """Search for all documents related with a certain user."""
         return cls.objects.filter(signers_id=user_id)
+
+
+def undersigned_changed(sender, **kwargs):
+    import ipdb
+    ipdb.set_trace()
+    try:
+        instance = kwargs.pop('instance', None)
+        und = instance
+        user = und.signers.last()
+        user.notify()
+        print('sendind email')
+    except:
+        print('first user')
+        pass
+
+m2m_changed.connect(undersigned_changed, sender=Undersigned.signers.through)
 
 
 class Report(Document):

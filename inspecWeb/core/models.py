@@ -3,7 +3,24 @@ from abc import abstractmethod
 from django.db.models import Q
 
 
-class ServicoBuilder(models.Model):
+class InspecModelManager(models.Manager):
+    use_for_related_fields = True
+
+    def get_or_none(self, **kwargs):
+        try:
+            return self.get(**kwargs)
+        except self.model.DoesNotExist:
+            return None
+
+
+class InspecModel(models.Model):
+    objects = InspecModelManager()
+
+    class Meta:
+        abstract = True
+
+
+class ServicoBuilder(InspecModel):
 
     @abstractmethod
     def build_proponente():
@@ -34,7 +51,7 @@ class ServicoBuilder(models.Model):
         raise NotImplementedError()
 
 
-class Convenio(models.Model):
+class Convenio(InspecModel):
     ano_convenio = models.DateField(null=True)
     nr_convenio = models.IntegerField(null=True)
     tx_objeto_convenio = models.CharField(max_length=255)
@@ -82,14 +99,14 @@ class Convenio(models.Model):
             Q(proponente__tx_regiao_proponente__startswith=query))
 
 
-class Concedente(models.Model):
+class Concedente(InspecModel):
     nm_respons_concedente = models.CharField(max_length=255, null=True)
     cd_respons_concedente = models.CharField(max_length=255, null=True)
     nm_orgao_concedente = models.CharField(max_length=255, null=True)
     cd_orgao_concedente = models.CharField(max_length=255, null=True)
 
 
-class Datas(models.Model):
+class Datas(InspecModel):
     ano_convenio = models.DateField(null=True)
     dt_inicio_vigencia = models.DateField()
     dt_fim_vigencia = models.DateField()
@@ -97,13 +114,13 @@ class Datas(models.Model):
     dt_publicacao = models.DateField(null=True)
 
 
-class Programa(models.Model):
+class Programa(InspecModel):
     cd_programa = models.CharField(max_length=255, null=True)
     nm_programa = models.CharField(max_length=255, null=True)
     cd_acao_programa = models.CharField(max_length=255, null=True)
 
 
-class Proponente(models.Model):
+class Proponente(InspecModel):
     cd_identif_proponente = models.CharField(max_length=255)
     nm_proponente = models.CharField(max_length=255, null=True)
     tx_esfera_adm_proponente = models.CharField(max_length=255, null=True)
@@ -115,26 +132,26 @@ class Proponente(models.Model):
     cd_repons_proponente = models.FloatField(default=0.0, null=True)
 
 
-class Proposta(models.Model):
+class Proposta(InspecModel):
     ano_proposta = models.DateField(null=True)
     nr_proposta = models.IntegerField(null=True)
     dt_proposta = models.DateField(null=True)
     id_proposta = models.IntegerField(null=True)
 
 
-class Responsavel(models.Model):
+class Responsavel(InspecModel):
     nm_respons_proponente = models.CharField(max_length=255, null=True)
     cd_respons_proponente = models.FloatField(default=0.0)
     nm_respons_concedente = models.CharField(max_length=255, null=True)
     cd_respons_concedente = models.FloatField(default=0.0, null=True)
 
 
-class Superior(models.Model):
+class Superior(InspecModel):
     nm_orgao_superior = models.CharField(max_length=255)
     cd_orgao_superior = models.IntegerField()
 
 
-class Valores(models.Model):
+class Valores(InspecModel):
     # value = "R$ 50,00"
     # value = value[:-3]
     # value = sub(r'[^\d.]', '', value)

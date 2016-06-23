@@ -3,9 +3,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from core.models import InspecModel
 
 
-class InspecUser(User):
+class InspecUser(User, InspecModel):
     """Inspec User."""
 
     user_cpf = models.CharField(max_length=11)
@@ -13,6 +14,9 @@ class InspecUser(User):
     user_birthday = models.DateTimeField(auto_now=True)
     user_gender = models.CharField(max_length=13)
     # process_track = models.ManyToManyField('Acompanhamento')
+
+    def __str__(self):
+        return "{} - {}".format(self.username, self.email)
 
     def notify(self):
         """Method to notify InspecUser from modifications on Document."""
@@ -25,21 +29,21 @@ class InspecUser(User):
             fail_silently=False)
 
 
-class InspecAgent(User):
+class InspecAgent(User, InspecModel):
     """Inspec secondary user, Agent."""
 
     agent_registration = models.CharField(max_length=7)
     public_location = models.ForeignKey('Logradouro')
 
 
-class Acompanhamento(models.Model):
+class Acompanhamento(InspecModel):
     """relation of InspecUser and public_concession."""
 
     related_user = models.ForeignKey('InspecUser')
     # public_concession = models.ForeignKey('Convenio')
 
 
-class Logradouro(models.Model):
+class Logradouro(InspecModel):
     """Public_location attr."""
 
     place_name = models.CharField(max_length=100)
