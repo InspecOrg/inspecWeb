@@ -14,7 +14,7 @@ class Document(models.Model):
 class Undersigned(Document):
     """Concrete class inherits from document."""
 
-    signers = models.ForeignKey(InspecUser)
+    # signers = models.ManyToManyField(InspecUser)
     status = models.CharField(max_length=100)
     interested = models.ForeignKey(InspecAgent, null=True)
 

@@ -12,7 +12,7 @@ class InspecUser(User):
     user_registration = models.CharField(max_length=7)
     user_birthday = models.DateTimeField(auto_now=True)
     user_gender = models.CharField(max_length=13)
-    process_track = models.ManyToManyField('Acompanhamento')
+    # process_track = models.ManyToManyField('Acompanhamento')
 
     def notify(self):
         """Method to notify InspecUser from modifications on Document."""

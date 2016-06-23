@@ -70,8 +70,7 @@ class Convenio(models.Model):
     @classmethod
     def get_convenio_by_uf(cls, uf):
         u"""Get all instances of 'Convenio' that matches(Unidade da Federação)."""
-        return cls.objects.filter(proponente__uf_proponente__startswith="SP")
-
+        return cls.objects.filter(proponente__uf_proponente__startswith=uf)
 
 
 class Concedente(models.Model):
