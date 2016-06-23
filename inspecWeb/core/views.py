@@ -25,9 +25,24 @@ class SearchConveniosByUf(View):
 
     def get(self, request):
         """Get method to acess the page."""
-        uf_query = request.GET['uf']
+        uf_query = request.GET['search_uf']
 
         convenios = Convenio.get_convenio_by_uf()
+
+        return render_to_response(
+            'convenios.html',
+            locals(),
+            context_instance=RequestContext(request))
+
+
+class SearchConveniosByMunicipio(View):
+    """Class View to search Convenios by municipio."""
+
+    http_method_names = [u'get']
+
+    def get(self, request):
+        """Get method to acess the page."""
+        municipio_query = request.GET['search_municipio']
 
         return render_to_response(
             'convenios.html',
