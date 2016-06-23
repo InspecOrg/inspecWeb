@@ -4,14 +4,17 @@
   <div class="mdl-layout__header-row">
     <span class="mdl-layout-title"><i class="fa fa-home"></i> Home | InspecOrg</span>
     <div class="mdl-layout-spacer"></div>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-      <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
-        <i class="fa fa-search"></i>
-      </label>
-      <div class="mdl-textfield__expandable-holder">
-        <input class="mdl-textfield__input" type="text" id="search">
-        <label class="mdl-textfield__label" for="search">Enter your query...</label>
-      </div>
+
+    <form action="/search/" method="GET">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+          <i class="fa fa-search"></i>
+        </label>
+          <div class="mdl-textfield__expandable-holder">
+            <input class="mdl-textfield__input" type="text" id="search" name="search">
+            <label class="mdl-textfield__label" for="search">Busque por convenios</label>
+          </div>
+      </form>
     </div>
     <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
       <i class="fa fa-bars"></i>

@@ -20,9 +20,14 @@
     {% block header %}{% endblock header %}
 </head>
 <body>
-    {% block main_content %}
-    {% endblock main_content %}
     <script src="{% static 'js/material.min.js'%}"></script>
     <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+
+    {% block main_content %}
+    {% endblock main_content %}
+    
+    
+
+
 </body>
 </html>

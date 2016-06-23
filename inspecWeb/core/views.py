@@ -6,28 +6,30 @@ from django.template import RequestContext
 from core.models import Convenio
 
 
-class SearchConvenios(View):
+class ViewConvenios(View):
     """Class View to search Convenios."""
 
     http_method_names = [u'get']
 
     def get(self, request):
         """Get method to acess the page."""
+        convenios = Convenio.objects.all()
         return render_to_response(
             'convenios.html',
+            locals(),
             context_instance=RequestContext(request))
 
 
-class SearchConveniosByUf(View):
+class SearchConvenios(View):
     """Class View to search Convenios by Uf."""
 
     http_method_names = [u'get']
 
     def get(self, request):
         """Get method to acess the page."""
-        uf_query = request.GET['search_uf']
+        query = request.GET['search']
 
-        convenios = Convenio.get_convenio_by_uf()
+        convenios = Convenio.get_convenio_by_uf(query)
 
         return render_to_response(
             'convenios.html',
@@ -43,6 +45,8 @@ class SearchConveniosByMunicipio(View):
     def get(self, request):
         """Get method to acess the page."""
         municipio_query = request.GET['search_municipio']
+
+        convenios = Convenio.get_convenio_by_municipio(municipio_query)
 
         return render_to_response(
             'convenios.html',
