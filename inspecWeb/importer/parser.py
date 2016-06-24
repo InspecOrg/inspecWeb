@@ -7,10 +7,25 @@ from core.models import (Convenio, Concedente, Datas, Programa, Proponente,
                          Proposta, Superior, Valores, ConvenioBuilder)
 from datetime import datetime
 from re import sub
+from abc import abstractmethod
 
 
 class Importer(object):
-    
+
+    def import_data(self, qnt_conv):
+        self.import_servico(qnt_conv)
+
+    @abstractmethod
+    def read_file(self, file_name, nrows):
+        raise NotImplementedError()
+
+    @abstractmethod
+    def import_convenios(self, qnt_conv):
+        raise NotImplementedError()
+
+
+class ConvImporter(Importer):
+
     convenio_builder = ConvenioBuilder()
 
     def import_data(self, qnt_conv):
