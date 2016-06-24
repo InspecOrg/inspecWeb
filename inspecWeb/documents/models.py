@@ -4,6 +4,7 @@ from django.db import models
 from authentication.models import InspecAgent, InspecUser
 from core.models import InspecModel
 from django.db.models.signals import m2m_changed
+from abc import abstractmethod
 
 
 class Document(InspecModel):
@@ -59,6 +60,13 @@ class Report(Document):
     """Concrete class inherits from document."""
 
     responsible = models.ForeignKey(InspecAgent)
+
+
+class Creator():
+
+    @abstractmethod
+    def create_document(cls, choice_number):
+        raise NotImplementedError()
 
 
 class DocumentCreator():
