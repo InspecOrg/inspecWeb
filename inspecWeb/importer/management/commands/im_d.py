@@ -12,4 +12,4 @@ class Command(BaseCommand):
         """This method is used for create objects based in parser."""
 
         parser = ConvImporter()
-        parser.import_data(400)
+        parser.import_data(10)

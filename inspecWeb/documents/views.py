@@ -1,10 +1,11 @@
 """Views for document app."""
 
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.views.generic import View
 from django.template import RequestContext
 from documents.models import Undersigned, DocumentCreator, Document
 from core.models import Convenio
+from authentication.models import InspecUser
 # Create your views here.
 
 
@@ -17,11 +18,9 @@ class CreateDocument(View):
         """Get method for CreateDocument."""
         convenio = Convenio.objects.get(id=convenio_id)
 
-
         convenio_nm = convenio.programa.nm_programa
-       
-        document = Document.objects.get_or_none(title__contains=convenio_nm)
-        
+
+        document = Undersigned.objects.get_or_none(title__contains=convenio_nm)
 
         if document is None:
             document = DocumentCreator.create_document(1)
@@ -37,7 +36,8 @@ class CreateDocument(View):
             document.save()
             document.signers.add(request.user)
         else:
-            document.signers.add(request_user)
+            user = InspecUser.objects.get(id=request.user.id)
+            document.signers.add(user)
             document.save()
 
 

@@ -6,6 +6,7 @@ from django.views.generic import View
 from django.contrib.auth import authenticate, login, logout
 from authentication.models import InspecUser
 from django.contrib.auth.decorators import login_required
+from documents.models import *
 
 
 class Login(View):
@@ -60,9 +61,15 @@ class Index(View):
 
     def get(self, request):
         """method."""
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
+                documentos = Undersigned.objects.filter(
+                    signers__username=request.user.username
+                )
                 return render_to_response(
-                    'index.html', context_instance=RequestContext(request))
+                    'index.html',
+                    locals(),
+                    context_instance=RequestContext(request)
+                )
         else:
             return render_to_response(
                 'login.html', context_instance=RequestContext(request))
