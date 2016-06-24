@@ -12,7 +12,7 @@
                             <div class='collapsible-body'>
                                 <span>
                                     <a href="{% url 'convenio_detail' convenio_id=convenio.id %}" class="waves-effect waves-light btn right indigo darken-3">Ver Mais Info</a>
-                                    <a href="" class="waves-effect waves-light btn right">Assinar</a>
+                                    <a href="{% url 'document' convenio_id=convenio.id %}" class="waves-effect waves-light btn right">Assinar</a>
                                 </span>
                                 <ul class="collection">
                                     <li class="collection-item"><span>Orgão Responsável: {{convenio.superior.nm_orgao_superior}}</li></span>
